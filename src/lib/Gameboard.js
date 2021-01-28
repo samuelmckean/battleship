@@ -121,9 +121,22 @@ const Gameboard = () => {
     }
   }
 
+  // reports whether or not all the boards ships have been sunk
+  const allShipsSunk = () => {
+    const board = getBoard();
+    // iterate through all spaces on the board
+    for (let i = 0; i < 100; i++) {
+      if (board[i].ship && board[i].ship.isSunk() === false) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   return {
     getBoard,
     receiveAttack,
+    allShipsSunk,
   }
 }
 

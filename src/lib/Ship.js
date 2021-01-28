@@ -1,9 +1,9 @@
 const Ship = (locations) => {
   // get length of ship
-  const length = locations.length;
+  const length = {locations};
   // initialize hitStatus array
   const hitStatus = [];
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < length; i+=1) {
     hitStatus[i] = {
       index: locations[i],
       hit: false,
@@ -12,7 +12,7 @@ const Ship = (locations) => {
 
   const hit = (hitIndex) => {
     // iterate through the hitStatus to check that the given hitIndex is valid
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < length; i+=1) {
       // check if spot has been hit before
       if (hitStatus[i].index === hitIndex && hitStatus[i].hit === true) {
         throw new Error('This location has already been hit');
@@ -28,7 +28,7 @@ const Ship = (locations) => {
   };
 
   const isSunk = () => {
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < length; i+=1) {
       if (hitStatus[i].hit === false) {
         return false;
       }

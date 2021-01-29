@@ -16,22 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "prettier | eslint --fix"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "airbnb",
-      "prettier",
-      "prettier/react"
-    ],
-    "plugins": [
-      "prettier"
-    ],
-    "rules": {
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-    }
+    "lint": "prettier . -w && eslint . --ext .js --ignore-pattern node_modules/"
   },
   "browserslist": {
     "production": [

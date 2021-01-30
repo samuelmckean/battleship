@@ -19,16 +19,15 @@ test("computer player attacks randomly without duplicating moves", () => {
   return expect(
     Promise.all(movesMade).then((values) => {
       // convert x, y coords to index
-      const indexArr = values.map(({x, y}) => x + 10 * y, 10);
+      const indexArr = values.map(({ x, y }) => x + 10 * y, 10);
       // sort the array numerically
       indexArr.sort((a, b) => a - b);
       // check that all values 0 - 99 are in the array
       for (let j = 0; j < 100; j += 1) {
-        if (indexArr[j] !== j)
-          return false;
+        if (indexArr[j] !== j) return false;
       }
       return true;
     })
-  // test that Promise.all resolves to 100
+    // test that Promise.all resolves to 100
   ).resolves.toBe(true);
 });

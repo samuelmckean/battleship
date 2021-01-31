@@ -25,24 +25,33 @@ const Game = (player1Name, player2Name, numberOfHumanPlayers = 0) => {
 
   // checks if the game is over; returns the winner if true and null if false
   const gameOver = () => {
-    if (gameboard1.allShipsSunk()) return player1;
-    if (gameboard2.allShipsSunk()) return player2;
+    if (gameboard1.allShipsSunk()) return player2;
+    if (gameboard2.allShipsSunk()) return player1;
     return null;
   };
 
+  const takeTurn = (player, gameboard) => {
+    player
+      .attack()
+      .then(({ x, y }) => gameboard.receiveAttack(x, y))
+      .catch(() => new Error(`${player.name}'s move failed.`));
+  };
+
   // loop until allShipsSunk on either of the Gameboards
-  const run = () => {
-    while (!gameOver()) {
-      // have players alternate taking turns with user going first
-      player1
-        .attack()
-        .then(({ x, y }) => gameboard1.receiveAttack(x, y))
-        .catch(() => new Error(`${player1.name} move failed.`));
-      if (gameOver()) break;
-      player2
-        .attack()
-        .then(({ x, y }) => gameboard2.receiveAttack(x, y))
-        .catch(() => new Error(`${player2.name} move failed.`));
+  const run = async () => {
+    try {
+      while (!gameOver()) {
+        // have players alternate taking turns with user going first
+        // eslint-disable-next-line no-await-in-loop
+        await takeTurn(player1, gameboard2);
+        if (gameOver()) return player1;
+        // eslint-disable-next-line no-await-in-loop
+        await takeTurn(player2, gameboard1);
+        if (gameOver()) return player2;
+      }
+      return new Error("Exited loop without either player winning");
+    } catch {
+      throw new Error("Error in making a move.");
     }
   };
 

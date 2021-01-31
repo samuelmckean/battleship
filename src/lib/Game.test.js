@@ -8,7 +8,16 @@ test("game has two players", () => {
 
 test("two computer players finish a game successfully", () => {
   const game = Game("Computer 1", "Computer 2");
-  expect(() => game.run()).not.toThrowError();
-  const boardsSunk = game.gameboard1.allShipsSunk() + game.gameboard2.allShipsSunk();
-  expect(boardsSunk).toBe(1);
+  return game
+    .run()
+    .then((winner) => {
+      if (winner === game.player1 && game.gameboard2.allShipsSunk()) {
+        return true;
+      }
+      if (winner === game.player2 && game.gameboard1.allShipsSunk()) {
+        return true;
+      }
+      return false;
+    })
+    .then((result) => expect(result).toBe(true));
 });

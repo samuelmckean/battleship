@@ -1,6 +1,6 @@
 const Ship = (locations) => {
   // get length of ship
-  const length = { locations };
+  const { length } = locations;
   // initialize hitStatus array
   const hitStatus = [];
   for (let i = 0; i < length; i += 1) {

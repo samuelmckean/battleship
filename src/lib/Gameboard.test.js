@@ -59,6 +59,7 @@ test("successful attack is recorded properly", () => {
 
 test("reports that not all ships have been sunk", () => {
   const gameboard = Gameboard();
+  gameboard.receiveAttack(1, 1);
   expect(gameboard.allShipsSunk()).toBe(false);
 });
 
